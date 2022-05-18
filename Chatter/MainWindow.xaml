@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chatter"
         mc:Ignorable="d"
+        Loaded="MainWindow_OnLoaded"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button Name="startClient" Click="StartClient_OnClick" Width="150" Content="Start Client" HorizontalAlignment="Left" Grid.Row="0"></Button>
+        <TextBox Name="newClientName" Text="Tim" TextChanged="NewClientName_OnTextChanged" Width="500" Grid.Row="0" HorizontalAlignment="Center"></TextBox>
+        <Label Name="numbClients" Width="150" Grid.Row="0" HorizontalAlignment="Right"></Label>
+        <ListBox Name="messages" Grid.Row="1" Width="400" HorizontalAlignment="Left"></ListBox>
+        <ListBox Name="server" Grid.Row="1" Width="400" HorizontalAlignment="Right"></ListBox>
     </Grid>
 </Window>

@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using ObserverLib;
 
 namespace Chatter
 {
@@ -20,9 +10,43 @@ namespace Chatter
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ConcreteSubject subject;
+        
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            subject = new ConcreteSubject();
+            numbClients.Content = $"Nr Clients {subject.NumberOfCLients}";
+        }
+
+        private void StartClient_OnClick(object sender, RoutedEventArgs e)
+        {
+            var observer = new ConcreteObserver(subject, newClientName.Text, this);
+            Refresh();
+        }
+
+        public void Refresh()
+        {
+            numbClients.Content = $"Nr Clients {subject.NumberOfCLients}";
+        }
+
+        private void NewClientName_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            startClient.IsEnabled = newClientName.Text.Length != 0;
+        }
+
+        public void addMessage(string name, string msg)
+        {
+            messages.Items.Add($"{DateOnly.FromDateTime(DateTime.Now)} {name} {msg}");
+        }
+        
+        public void addLog(string name, string msg)
+        {
+            server.Items.Add($"{DateOnly.FromDateTime(DateTime.Now)} {name} {msg}");
         }
     }
 }
